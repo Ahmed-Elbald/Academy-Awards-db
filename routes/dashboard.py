@@ -42,7 +42,7 @@ Queries = {
             FROM STAFF_MEMBER S
             JOIN NOMINATION N
             ON N.Staff_member_first_name = S.First_name AND N.Staff_member_last_name = S.Last_name
-            WHERE N.Granted = 1 AND N.Award_name = 'best actor' AND S.Country_of_birth IS NOT NULL
+            WHERE N.Granted = 1 AND N.Award_name = 'best actor' AND S.Country_of_birth IS NOT NULL AND S.Country_of_birth != ''
             GROUP BY S.Country_of_birth
             ORDER BY COUNT(N.Granted) DESC
             LIMIT 5
@@ -63,7 +63,7 @@ Queries = {
             AND N.Staff_member_last_name = S.Last_name
             WHERE
             N.Granted = 1
-            AND S.Death_date IS NULL
+            AND S.Death_date IS NULL OR S.Death_date = '
             GROUP BY
             N.Award_name,
             N.Staff_member_first_name,
@@ -139,6 +139,7 @@ def run_query():
     result = db.session.execute(text(query_info['sql_statement']), {"username": user.username} if query_id == "1" else {})
     rows = result.fetchall()
     columns = result.keys()
+    db.session.close()
 
     # Filter the result to get only one winner per award for query 6
     if query_id == "6":
@@ -200,6 +201,7 @@ def run_query_with_input():
 
             rows = result.fetchall()
             columns = result.keys()
+            db.session.close()
 
             # Render the display template with the query results
             return render_template(
@@ -234,6 +236,7 @@ def run_query_with_input():
 
             rows = result.fetchall()
             columns = result.keys()
+            db.session.close()
 
             # Render the display template with the query results
             return render_template('display.html', title="Nominations for " + country, columns=columns, rows=rows, user=user)     
@@ -299,6 +302,7 @@ def insert_nomination(form, user):
         })
 
         db.session.commit()
+        db.session.close()
         return True, "Nomination inserted successfully."
 
     except Exception as e:
