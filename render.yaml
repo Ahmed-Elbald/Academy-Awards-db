@@ -7,4 +7,4 @@ services:
     startCommand: "gunicorn app:create_app()"
     envVars:
       - key: DATABASE_URL
-        value: mysql://AcademyAwards_rhythmyou:ff3c6c4110d94b2975058fd7a25613ca907e1eec@14kzg.h.filess.io/AcademyAwards_rhythmyou
+        value: mysql://AcademyAwards_rhythmyou:ff3c6c4110d94b2975058fd7a25613ca907e1eec@14kzg.h.filess.io:61002/AcademyAwards_rhythmyou
