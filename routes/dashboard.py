@@ -21,7 +21,7 @@ Queries = {
             U.Award_name,
             (U.iteration_number + 1928) AS Year,
             U.Movie_title,
-            COUNT(u.Created_by) AS Number_of_nominations
+            COUNT(U.Created_by) AS Number_of_nominations
             FROM USER_NOMINATION U
             GROUP BY U.Movie_title, U.Movie_release_date, U.Award_name, U.iteration_number
             HAVING COUNT(U.Created_by) = (
