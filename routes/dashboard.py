@@ -63,7 +63,7 @@ Queries = {
             AND N.Staff_member_last_name = S.Last_name
             WHERE
             N.Granted = 1
-            AND S.Death_date IS NULL OR S.Death_date = '
+            AND S.Death_date IS NULL OR S.Death_date = ''
             GROUP BY
             N.Award_name,
             N.Staff_member_first_name,
