@@ -56,6 +56,7 @@ def register():
         # Add new user to the database
         db.session.add(new_user)
         db.session.commit()
+        db.session.close()
 
         # Redirect to login page after registration
         return redirect(url_for('auth.login'))
