@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %} Dashboard {% endblock %}
+
+
+{% block content %}
+<h2>Dashboard</h2>
+
+{% if errors %}
+{% for error in errors %}
+<div class="alert alert-danger" role="alert">
+  {{ error }}
+</div>
+{% endfor %}
+{% endif %}
+
+{% if success %}
+{% for message in success %}
+<div class="alert alert-success" role="alert">
+  {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+
+<form method="post" action="{{ url_for('dashboard.run_query_with_input') }}" class="mb-4">
+  <input type="hidden" name="query_id" value="input_0">
+  <h3 class="mt-4">Add a new nomination</h3>
+  <div class="mb-2">
+    <label for="title-input" class="form-label">Movie title</label>
+    <input type="text" class="form-control" id="title-input" placeholder="Movie title" name="movie-title" required
+      value="Oppenheimer">
+  </div>
+  <div class="mb-2">
+    <label for="title-input" class="form-label">Movie Release Date</label>
+    <input type="date" class="form-control" id="title-input" name="movie-release-date" required value="2023-07-11">
+  </div>
+  <div class="mb-2">
+    <label for="award-input" class="form-label">Award name</label>
+    <input type="text" class="form-control" id="award-input" placeholder="Award name" name="award-name" required
+      value="Best Picture">
+  </div>
+  <div class="mb-2">
+    <label for="staff-first-input" class="form-label">Staff member firstname</label>
+    <input type="text" class="form-control" id="staff-first-input" placeholder="Staff member firstname"
+      name="staff-firstname" required value="Christopher">
+  </div>
+  <div class="mb-2">
+    <label for="staff-second-input" class="form-label">Staff member lastname</label>
+    <input type="text" class="form-control" id="staff-second-input" placeholder="Staff member lastname"
+      name="staff-lastname" required value="Nolan">
+  </div>
+  <div class="mb-2">
+    <label for="iteration-input" class="form-label">iteration</label>
+    <input type="number" class="form-control" id="iteration-input" placeholder="iteration" name="iteration-number"
+      required value="96">
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Run</button>
+</form>
+
+<h3>Queries you can perform</h3>
+<form method="post" action="{{ url_for('dashboard.run_query') }}">
+  <label for="query" class="mb-2">Choose a query:</label>
+  <select name="query_id" id="query" class="form-select">
+    {% for key, query in queries.items() %}
+    <option value="{{ key }}">{{ query.title }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit" class="btn btn-primary mt-3">Run</button>
+</form>
+
+<h3 class="mt-5">Queries requiring input from the user</h3>
+
+<!-- Query 1: Nominations and Oscars for a given director, actor, singer -->
+<form method="post" action="{{ url_for('dashboard.run_query_with_input') }}" class="mb-4">
+  <h5>Total nominations and Oscars for a given director, actor, and singer</h5>
+  <input type="hidden" name="query_id" value="input_1">
+  <div class="mb-2">
+    <label class="form-label">Director/Actor/Singer firstname</label>
+    <input type="text" class="form-control" name="staff-firstname" required value="Christopher">
+  </div>
+  <div class="mb-2">
+    <label class="form-label">Director/Actor/Singer lastname</label>
+    <input type="text" class="form-control" name="staff-lastname" required value="Nolan">
+  </div>
+  <button type="submit" class="btn btn-success">Run Query</button>
+</form>
+
+<!-- Query 2: Nominated staff from a given country -->
+<form method="post" action="{{ url_for('dashboard.run_query_with_input') }}">
+  <h5>Show all the nominated staff members born in a given country, along with the categories they were nominated for,
+    number of nominations and oscars in descending order</h5>
+  <input type="hidden" name="query_id" value="input_2">
+  <div class="mb-2">
+    <label class="form-label">Country</label>
+    <input type="text" class="form-control" name="country-name" required value="U.S.">
+  </div>
+  <button type="submit" class="btn btn-success">Run Query</button>
+</form>
+
+
+
+{% endblock %}

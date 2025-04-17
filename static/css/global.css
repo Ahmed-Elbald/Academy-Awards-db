@@ -1,0 +1,124 @@
+/* Global */
+:root {
+  --bodyTxtClr: hsl(var(--clr-neu-300));
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background-color: var(--bs-primary);
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--bs-gray-200);
+}
+
+::selection {
+  background-color: var(--bs-purple);
+  color: var(--bs-white);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  transition-duration: 125ms;
+
+  @media (prefers-reduced-motion: true) {
+    transition-duration: 0ms;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+body {
+  color: var(--bodyTxtClr);
+  font-family: var(--ff-pr);
+  font-size: var(--fs-400);
+  letter-spacing: 0px;
+  line-height: 2;
+}
+
+input,
+button,
+textarea,
+a {
+  --outlineClr: currentColor;
+
+  outline-width: 2px;
+  outline-color: transparent;
+
+  &:focus-visible {
+    outline-color: var(--outlineClr);
+    text-decoration: none;
+  }
+
+  @supports not selector(:focus-visible) {
+    &:focus {
+      outline-color: var(--outlineClr);
+      text-decoration: none;
+    }
+  }
+}
+
+input,
+button,
+textarea {
+  display: block;
+  border: none;
+}
+
+input,
+textarea {
+  outline-style: solid;
+}
+
+a,
+button {
+  outline-style: dashed;
+}
+
+textarea {
+  resize: none;
+}
+
+button {
+  background-color: transparent;
+  color: inherit;
+  text-align: unset;
+  cursor: pointer;
+
+  >* {
+    pointer-events: none;
+  }
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  text-transform: inherit;
+  color: inherit;
+  outline-offset: 3px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+b,
+strong {
+  font: inherit;
+}
